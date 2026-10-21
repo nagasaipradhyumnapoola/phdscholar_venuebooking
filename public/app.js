@@ -203,13 +203,18 @@ function navigate(next) {
   route = next;
   location.hash = next;
   render();
-  $("#main")?.focus();
+  $("#main")?.focus({ preventScroll: true });
+  window.scrollTo({ top: 0, behavior: "instant" });
 }
 window.addEventListener("hashchange", () => {
   const next = location.hash.slice(1) || "overview";
   if (next !== route) {
     route = next;
-    if (state) render();
+    if (state) {
+      render();
+      $("#main")?.focus({ preventScroll: true });
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
   }
 });
 let menuReturnFocus = true,
@@ -225,9 +230,21 @@ $("#mobile-menu").addEventListener("close", () => {
   $(".mobile-menu-toggle")?.setAttribute("aria-expanded", "false");
   if (menuReturnFocus && menuTrigger?.isConnected) menuTrigger.focus();
 });
-window.matchMedia("(max-width:960px)").addEventListener("change", (e) => {
+window.matchMedia("(max-width:1200px)").addEventListener("change", (e) => {
   if (!e.matches) closeMobileMenu(false);
 });
+const wideLoginQuery = matchMedia("(min-width: 961px)"),
+  tallLoginQuery = matchMedia("(min-height: 800px)");
+function fitDemoChooser() {
+  const chooser = $(".demo-access");
+  if (chooser) chooser.open = wideLoginQuery.matches && tallLoginQuery.matches;
+}
+wideLoginQuery.addEventListener("change", () => {
+  const information = $(".login-information");
+  if (information) information.open = wideLoginQuery.matches;
+  fitDemoChooser();
+});
+tallLoginQuery.addEventListener("change", fitDemoChooser);
 function openMobileMenu() {
   const menu = $("#mobile-menu");
   menuTrigger = document.activeElement;
@@ -626,6 +643,11 @@ function faqSection(compact = false) {
       ),
   );
 }
+function showLoginHelp() {
+  const help = $(".login-information");
+  if (help) help.open = true;
+  $("#login-faq")?.scrollIntoView({ block: "center" });
+}
 
 function searchPortal() {
   const results = h("div", {
@@ -696,9 +718,7 @@ function searchPortal() {
                     if (state) go(key);
                     else {
                       closeModal();
-                      key === "faq"
-                        ? $("#login-faq")?.scrollIntoView({ block: "center" })
-                        : $("#f-email")?.focus();
+                      key === "faq" ? showLoginHelp() : $("#f-email")?.focus();
                     }
                   },
                   "search-result",
@@ -807,11 +827,6 @@ function login() {
     { class: "login-form" },
     h("p", { class: "eyebrow" }, "PHD PRE-TALK PORTAL"),
     h("h1", {}, "Sign in"),
-    h(
-      "p",
-      { class: "muted login-intro" },
-      "Use your department email and password.",
-    ),
     emailField,
     passwordField,
     h(
@@ -841,15 +856,21 @@ function login() {
     query = "";
     location.hash = route;
     await load();
+    $("#main")?.focus({ preventScroll: true });
+    window.scrollTo({ top: 0, behavior: "instant" });
     toast("Signed in.");
   });
+  const wideLogin = wideLoginQuery.matches;
   const demos = h(
-    "div",
-    { class: "demo-access" },
+    "details",
+    {
+      class: "demo-access",
+      open: wideLogin && tallLoginQuery.matches,
+    },
     h(
-      "div",
-      { class: "section-label" },
-      h("span", {}, "DEMO ACCOUNTS"),
+      "summary",
+      {},
+      "Demo accounts",
       h("span", { class: "small muted" }, "Fictional accounts only"),
     ),
     h(
@@ -871,7 +892,7 @@ function login() {
     h(
       "p",
       { class: "small muted" },
-      "Choose a role to fill the demo credentials. Password: ",
+      "Password: ",
       h("code", {}, "DemoOnly!2026"),
       btn(
         "Copy demo password",
@@ -890,8 +911,9 @@ function login() {
         "main",
         { id: "main", class: "login-main", tabindex: "-1" },
         h(
-          "section",
-          { class: "login-information" },
+          "details",
+          { class: "login-information", open: wideLogin },
+          h("summary", {}, "About pre-talk scheduling & help"),
           h("p", { class: "eyebrow" }, "DOCTORAL RESEARCH"),
           h("h2", {}, "Ph.D. Pre-talk Scheduling"),
           h(
@@ -945,7 +967,7 @@ function login() {
           h(
             "p",
             { class: "login-note" },
-            "Use demo credentials only. Never enter a real SRM password.",
+            "Demo accounts only. Do not use a real SRM password.",
           ),
         ),
       ),
@@ -1092,24 +1114,6 @@ function overviewPage() {
       bookingButton(),
     ),
     h(
-      "div",
-      { class: "overview-strip" },
-      h(
-        "span",
-        { class: "strip-label" },
-        icon("calendar"),
-        "DEPARTMENT SCHEDULE",
-      ),
-      h("span", {}, "One pre-talk per day"),
-      h("span", { class: "strip-dot" }, "·"),
-      h(
-        "span",
-        { class: "muted" },
-        "Reserved from submission through final approval",
-      ),
-      btn("View calendar", () => navigate("calendar"), "text-button", "arrow"),
-    ),
-    h(
       "section",
       { class: "metrics", "aria-label": "Schedule summary" },
       metric(
@@ -1155,10 +1159,21 @@ function overviewPage() {
                 : "Needs attention",
             ),
           ),
-          btn("View all", () => navigate("requests"), "text-button", "arrow"),
+          btn(
+            `View all (${relevant.length})`,
+            () => {
+              if (manager() || state.user.role === "hod") navigate("approvals");
+              else {
+                filter = "pending";
+                navigate("requests");
+              }
+            },
+            "text-button",
+            "arrow",
+          ),
         ),
         relevant.length
-          ? bookingList(relevant.slice(0, 4))
+          ? bookingList(relevant.slice(0, 2))
           : empty(
               "No pending requests",
               "There are no requests waiting at this stage.",
@@ -1189,7 +1204,7 @@ function overviewPage() {
               "div",
               { class: "upcoming-list" },
               confirmed
-                .slice(0, 3)
+                .slice(0, 2)
                 .map((t) =>
                   h(
                     "button",
@@ -1219,8 +1234,11 @@ function overviewPage() {
           "div",
           { class: "panel-footer" },
           btn(
-            "Explore available dates",
-            () => navigate("calendar"),
+            "View all confirmed",
+            () => {
+              filter = "approved";
+              navigate("requests");
+            },
             "text-button",
             "arrow",
           ),
@@ -1431,7 +1449,7 @@ function calendarPage() {
       "DATE AVAILABILITY",
       manager() ? "Manage dates" : "Available dates",
       manager()
-        ? "Enable future days for your department. An active reservation always protects the whole day."
+        ? "Enable future dates. Cancel active requests before disabling a reserved day."
         : state.user.role === "supervisor"
           ? "Choose a date, then enter the venue and time."
           : "Department date availability. Booking is limited to supervisors.",
@@ -1493,14 +1511,6 @@ function calendarPage() {
         h("span", {}, h("i", { class: "legend unavailable" }), "Not enabled"),
         h("span", { class: "muted" }, "All dates and times are in IST."),
       ),
-    ),
-    h(
-      "div",
-      { class: "info-banner" },
-      icon("calendar"),
-      manager()
-        ? "Select any future day to enable or disable it. Cancel active requests before disabling their day."
-        : "Only the coordinator can open dates. A reserved day becomes available again when a request is rejected or cancelled.",
     ),
   );
 }
@@ -2511,10 +2521,7 @@ initializeEnhancements({
   closeModal,
   toast,
   search: searchPortal,
-  help: () =>
-    state
-      ? navigate("guide")
-      : $("#login-faq")?.scrollIntoView({ block: "center" }),
+  help: () => (state ? navigate("guide") : showLoginHelp()),
 });
 
 try {

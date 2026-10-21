@@ -300,6 +300,7 @@ test("mobile sign-in recovers after a lost connection; reduced motion and long t
     path: resolve(evidence, "login-mobile.png"),
     fullPage: true,
   });
+  await page.locator(".demo-access > summary").click();
   await page
     .getByRole("button", { name: "Research coordinator", exact: true })
     .click();

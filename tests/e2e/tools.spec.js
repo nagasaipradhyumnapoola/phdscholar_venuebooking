@@ -75,6 +75,7 @@ test("public dark mode persists, password visibility, FAQ, search, contact, copy
   await page
     .getByRole("button", { name: "Necessary only", exact: true })
     .click();
+  await page.locator(".demo-access > summary").click();
   await page.getByRole("button", { name: "Supervisor", exact: true }).click();
   await expect(page.getByLabel("Password", { exact: true })).toHaveAttribute(
     "type",
@@ -91,6 +92,7 @@ test("public dark mode persists, password visibility, FAQ, search, contact, copy
   await scan(page);
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await page.locator(".login-information > summary").click();
   const faq = page.locator("#login-faq details").first();
   await faq.locator("summary").click();
   await expect(faq).toHaveAttribute("open", "");
@@ -123,6 +125,7 @@ test("public dark mode persists, password visibility, FAQ, search, contact, copy
       },
     }),
   );
+  await page.locator(".demo-access > summary").click();
   await page
     .getByRole("button", { name: "Copy demo password", exact: true })
     .click();

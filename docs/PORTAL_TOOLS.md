@@ -8,7 +8,7 @@ Implemented from the user's 20-item screenshot on 21 October 2026. These control
 | 2 | Simple cookie banner | First-visit notice with **Necessary only** and **Allow campaign tracking**. Reopen it through **Cookie preferences** in the footer. The essential sign-in cookie remains HttpOnly/SameSite=Strict. |
 | 3 | Site search | Header search or **Ctrl/Cmd + K**. Searches permitted pages, scoped pre-talks, and scholar records already authorized by the backend. A result opens the record or page. Public search links to sign-in and FAQ. Escape closes the search dialog. |
 | 4 | Back to top | Floating up-arrow appears after scrolling 360 pixels; returns to the top and focuses main content. Reduced-motion preference removes smooth scrolling. |
-| 5 | Mobile menu | Role-aware native dialog drawer at widths up to 960px. Supports Escape, focus return, navigation, help, and sign-out. |
+| 5 | Mobile menu | Role-aware native dialog drawer at widths up to 1200px, preventing a wrapped desktop menu. Supports Escape, focus return, navigation, help, and sign-out; closes when the viewport widens past this breakpoint. |
 | 6 | Loading animations | Busy submit/action buttons, loading indicators on asynchronous lists, and a request progress strip. Controls recover after a failure. Motion is removed when requested by the device. |
 | 7 | Hover states | Buttons, navigation, results, request rows, links, calendar dates, and FAQ controls have visible hover feedback and keyboard focus styles. |
 | 8 | Scroll progress bar | Thin yellow bar at the viewport top represents actual document scroll progress. Hidden when the page does not need scrolling. |
@@ -24,6 +24,10 @@ Implemented from the user's 20-item screenshot on 21 October 2026. These control
 | 18 | Last updated date | Authenticated footer shows the actual bootstrap refresh time in IST. Public pages show the interface revision date. The label identifies data refresh separately from release date. |
 | 19 | Expandable FAQ | Native disclosure controls on sign-in and **Help & roles**. Covers submission, reservation timing, approvals, cancellation assumptions, access and fictional accounts. |
 | 20 | Floating contact button | Yellow envelope opens **Contact & help**. The published institutional information address is clickable. It is an institutional enquiry destination, not an assertion that SRMIST supports this independent portal. No phone number is included. |
+
+## Page height
+
+Sign-in fits the tested default viewports from 320×700 to 1440×900. **Demo accounts** expands the role chooser on short or narrow screens. **About pre-talk scheduling & help** expands the public instructions and FAQ on narrow screens. Expanding optional content, opening a large form, or viewing a long register can require vertical scrolling. Shared page navigation resets to the top while moving keyboard focus to the main content.
 
 ## Storage and data boundaries
 
