@@ -1,0 +1,41 @@
+# DEMO account table
+
+Portal: http://127.0.0.1:4173/
+
+Fictional sample accounts only. Use the email address to sign in.
+
+CSE = Computer Science & Engineering. ECE = Electronics & Communication.
+
+| Department | Role | Name | Account ID | Login email | Password | Status |
+|---|---|---|---|---|---|---|
+| CSE | Admin | Dr. Meera Raman | DEMO-F001 | admin@demo.example | DemoOnly!2026 | Active |
+| CSE | Admin | Dr. Rhea Nair | DEMO-CSE-F101 | admin2@demo.example | DemoOnly!2026 | Active |
+| CSE | Admin | Dr. Manoj Krishnan | DEMO-CSE-F102 | admin3@demo.example | DemoOnly!2026 | Active |
+| CSE | Coordinator | Dr. Nandini Rao | DEMO-F002 | coordinator@demo.example | DemoOnly!2026 | Active |
+| CSE | Coordinator | Dr. Sahana Reddy | DEMO-CSE-F103 | coordinator2@demo.example | DemoOnly!2026 | Active |
+| CSE | Coordinator | Dr. Prakash Balan | DEMO-CSE-F104 | coordinator3@demo.example | DemoOnly!2026 | Active |
+| CSE | Supervisor | Dr. Arjun Menon | DEMO-F003 | supervisor@demo.example | DemoOnly!2026 | Active |
+| CSE | Supervisor | Dr. Kavya Iyer | DEMO-F004 | supervisor2@demo.example | DemoOnly!2026 | Active |
+| CSE | Supervisor | Dr. Sanjay Kulkarni | DEMO-CSE-F105 | supervisor3@demo.example | DemoOnly!2026 | Active |
+| CSE | HOD | Dr. Vikram Sen | DEMO-F005 | hod@demo.example | DemoOnly!2026 | Active |
+| CSE | HOD | Dr. Asha Menon | DEMO-CSE-F106 | hod2@demo.example | DemoOnly!2026 | Active |
+| CSE | HOD | Dr. Dev Iyer | DEMO-CSE-F107 | hod3@demo.example | DemoOnly!2026 | Active |
+| CSE | Panel | Dr. Leela Krishnan | DEMO-F006 | panel@demo.example | DemoOnly!2026 | Active |
+| CSE | Panel | Dr. Rohan Das | DEMO-F007 | panel2@demo.example | DemoOnly!2026 | Active |
+| CSE | Panel | Dr. Priya Nair | DEMO-F008 | panel3@demo.example | DemoOnly!2026 | Active |
+| CSE | Panel | Dr. Ishaan Bose | DEMO-F009 | panel4@demo.example | DemoOnly!2026 | Active |
+| CSE | Scholar | Ananya Narayanan | DEMO-S001 | scholar@demo.example | DemoOnly!2026 | Active |
+| CSE | Scholar | Rithika Suresh | DEMO-CSE-S102 | scholar2@demo.example | DemoOnly!2026 | Active |
+| CSE | Scholar | Naveen Kumar | DEMO-CSE-S103 | scholar3@demo.example | DemoOnly!2026 | Active |
+| ECE | Admin | Dr. Anita Varma | DEMO-ECE-F201 | ece-admin1@demo.example | DemoOnly!2026 | Active |
+| ECE | Admin | Dr. Mohan Sethi | DEMO-ECE-F202 | ece-admin2@demo.example | DemoOnly!2026 | Active |
+| ECE | Coordinator | Dr. Renu Pillai | DEMO-ECE-F203 | ece-coordinator1@demo.example | DemoOnly!2026 | Active |
+| ECE | Coordinator | Dr. Kiran Malhotra | DEMO-ECE-F204 | ece-coordinator2@demo.example | DemoOnly!2026 | Active |
+| ECE | Supervisor | Dr. Neelima Rao | DEMO-ECE-F205 | ece-supervisor2@demo.example | DemoOnly!2026 | Active |
+| ECE | Supervisor | Dr. Tara Shah | DEMO-F010 | other-supervisor@demo.example | DemoOnly!2026 | Active |
+| ECE | HOD | Dr. Sridhar Raman | DEMO-ECE-F206 | ece-hod1@demo.example | DemoOnly!2026 | Active |
+| ECE | HOD | Dr. Malini Das | DEMO-ECE-F207 | ece-hod2@demo.example | DemoOnly!2026 | Active |
+| ECE | Panel | Dr. Devika Joshi | DEMO-ECE-F208 | ece-panel1@demo.example | DemoOnly!2026 | Active |
+| ECE | Panel | Dr. Harish Bhat | DEMO-ECE-F209 | ece-panel2@demo.example | DemoOnly!2026 | Active |
+| ECE | Scholar | Ishita Raman | DEMO-ECE-S201 | ece-scholar1@demo.example | DemoOnly!2026 | Active |
+| ECE | Scholar | Rahul Nair | DEMO-ECE-S202 | ece-scholar2@demo.example | DemoOnly!2026 | Active |
